@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="windows-1251" />
+    <meta charset="UTF-8">
+    <title>vocabulary</title>
+    <style type="text/css">
+        form, input {
+            display: inline-block;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Vocabulary</h1>
+
+<br>
+
+<b>Russia:</b>
+<input type="text" name="russia" id="rus" size="30">
+
+<b>English:</b>
+<input type="text" name="english" id="eng" size="30">
+
+<p><input id="add" type="button" value="Add in vocabulary">
+
+    <input id="del" type="button" value="Delete from vocabulary"></p>
+
+
+<p><input id="ser" type="button" value="Search"></p>
+
+<p><input id="showAll" type="button" value="Show all words from vacabulary"></p>
+
+<textarea id="messages" rows="20" cols="50" readonly="readonly"></textarea>
+
+</textarea>
+
+<script type="text/javascript">
+    var $textarea = document.getElementById("messages");
+    document.getElementById("add").onclick = function () {
+        var xhr = new XMLHttpRequest();
+
+        var body = 'russia=' + encodeURIComponent(document.getElementById("rus").value) +
+            '&english=' + encodeURIComponent(document.getElementById("eng").value);
+
+        xhr.open("POST", "/add", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(body);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                $textarea.value = $textarea.value + xhr.responseText + "\n";
+            }
+        }
+    };
+    document.getElementById("del").onclick = function () {
+        var xhr = new XMLHttpRequest();
+
+        var body = 'russia=' + encodeURIComponent(document.getElementById("rus").value) +
+            '&english=' + encodeURIComponent(document.getElementById("eng").value);
+
+        xhr.open("POST", "/delete", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(body);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                $textarea.value = $textarea.value + xhr.responseText + "\n";
+            }
+        }
+    };
+    document.getElementById("ser").onclick = function () {
+        var xhr = new XMLHttpRequest();
+
+        var body = 'russia=' + encodeURIComponent(document.getElementById("rus").value) +
+            '&english=' + encodeURIComponent(document.getElementById("eng").value);
+
+        xhr.open("POST", "/search", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(body);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                $textarea.value = $textarea.value + xhr.responseText + "\n";
+            }
+        }
+    };
+
+    document.getElementById("showAll").onclick = function () {
+        var xhr = new XMLHttpRequest();
+
+        var body = 'russia=' + encodeURIComponent(document.getElementById("rus").value) +
+            '&english=' + encodeURIComponent(document.getElementById("eng").value);
+
+        xhr.open("POST", "/show", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(body);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                $textarea.value = $textarea.value + xhr.responseText + "\n";
+            }
+        }
+    };
+</script>
+</body>
+</html>
